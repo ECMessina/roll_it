@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:roll_it/dice_count.dart';
 import 'package:roll_it/gradient_container.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(
+    child: MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -16,7 +19,7 @@ class MainApp extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.green[100],
           title: const Text('Dice Count:'),
-          actions: const [
+          actions: [
             DiceCount(),
           ],
         ),

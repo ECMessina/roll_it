@@ -1,15 +1,17 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roll_it/dice_count_provider.dart';
 
-class RollContent extends StatefulWidget {
+class RollContent extends ConsumerStatefulWidget {
   const RollContent({super.key});
 
   @override
-  State<RollContent> createState() => _RollContentState();
+  ConsumerState<RollContent> createState() => _RollContentState();
 }
 
-class _RollContentState extends State<RollContent> {
+class _RollContentState extends ConsumerState<RollContent> {
   int currentRoll = 1;
 
   void rollIt() async {
@@ -28,10 +30,21 @@ class _RollContentState extends State<RollContent> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(
-          'assets/images/dice-$currentRoll.png',
-          width: 100,
-          height: 100,
+        Expanded(
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 24.0,
+              mainAxisSpacing: 24.0,
+            ),
+            itemCount: ref.watch(diceCountProvider) + 1,
+            itemBuilder: (BuildContext context, int index) {
+              return Image.asset(
+                'assets/images/dice-$currentRoll.png',
+              );
+            },
+          ),
         ),
         TextButton(
           onPressed: rollIt,
