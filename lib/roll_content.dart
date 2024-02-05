@@ -27,23 +27,20 @@ class _RollContentState extends ConsumerState<RollContent> {
 
   @override
   Widget build(BuildContext context) {
+    final count = ref.watch(diceCountProvider) + 1;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Expanded(
-          child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 24.0,
-              mainAxisSpacing: 24.0,
+        Wrap(
+          spacing: 24,
+          runSpacing: 24,
+          children: List.generate(
+            count,
+            (index) => Image.asset(
+              'assets/images/dice-$currentRoll.png',
+              height: 150,
+              width: 150,
             ),
-            itemCount: ref.watch(diceCountProvider) + 1,
-            itemBuilder: (BuildContext context, int index) {
-              return Image.asset(
-                'assets/images/dice-$currentRoll.png',
-              );
-            },
           ),
         ),
         TextButton(
