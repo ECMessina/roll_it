@@ -29,20 +29,26 @@ class _RollContentState extends ConsumerState<RollContent> {
   Widget build(BuildContext context) {
     final count = ref.watch(diceCountProvider) + 1;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Wrap(
-          spacing: 24,
-          runSpacing: 24,
-          children: List.generate(
-            count,
-            (index) => Image.asset(
-              'assets/images/dice-$currentRoll.png',
-              height: 150,
-              width: 150,
+        const Spacer(),
+        Column(
+          children: [
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 24,
+              runSpacing: 24,
+              children: List.generate(
+                count,
+                (index) => Image.asset(
+                  'assets/images/dice-$currentRoll.png',
+                  height: 150,
+                  width: 150,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
+        const Spacer(),
         TextButton(
           onPressed: rollIt,
           child: const Text(
