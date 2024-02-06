@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -15,12 +16,17 @@ class _RollContentState extends ConsumerState<RollContent> {
   List<int> currentRolls = [];
 
   void rollIt() async {
-    final player = AudioPlayer();
-    player.onPlayerComplete.listen((event) {
+    final timer = Timer.periodic(const Duration(milliseconds: 150), (timer) {
       setState(() {
         updateDice();
       });
     });
+
+    final player = AudioPlayer();
+    player.onPlayerComplete.listen((event) {
+      timer.cancel();
+    });
+
     await player.play(AssetSource('dice-142528.mp3'));
   }
 
