@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:roll_it/dice_count_provider.dart';
+import 'package:roll_it/providers/dice_count_provider.dart';
+import 'package:roll_it/providers/shared_preferences_provider.dart';
 
 class DiceCount extends ConsumerWidget {
   DiceCount({super.key});
@@ -21,8 +22,11 @@ class DiceCount extends ConsumerWidget {
       textStyle: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
-      onSelected: (String? value) {
-        ref.read(diceCountProvider.notifier).state = numOfDice.indexOf(value!);
+      onSelected: (String? value) async {
+        final savedCount = numOfDice.indexOf(value!);
+        final prefs = ref.read(sharedPreferencesProvider);
+        await prefs.setInt('Saved Count', savedCount);
+        ref.read(diceCountProvider.notifier).state = savedCount;
       },
       dropdownMenuEntries: numOfDice.map<DropdownMenuEntry<String>>((String value) {
         return DropdownMenuEntry<String>(value: value, label: value);

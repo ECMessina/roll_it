@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:roll_it/dice_count_provider.dart';
+import 'package:roll_it/providers/dice_count_provider.dart';
 
 class RollContent extends ConsumerStatefulWidget {
   const RollContent({super.key});
