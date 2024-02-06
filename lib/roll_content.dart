@@ -12,22 +12,40 @@ class RollContent extends ConsumerStatefulWidget {
 }
 
 class _RollContentState extends ConsumerState<RollContent> {
-  int currentRoll = 1;
+  List<int> currentRolls = [];
 
   void rollIt() async {
     final player = AudioPlayer();
     player.onPlayerComplete.listen((event) {
       setState(() {
-        currentRoll = Random().nextInt(6) + 1;
+        updateDice();
       });
-      debugPrint('done');
     });
     await player.play(AssetSource('dice-142528.mp3'));
   }
 
   @override
+  void initState() {
+    getNewDice();
+    super.initState();
+  }
+
+  void getNewDice() {
+    for (int i = 0; i < 6; i++) {
+      currentRolls.add(Random().nextInt(6) + 1);
+    }
+  }
+
+  void updateDice() {
+    for (int i = 0; i < 6; i++) {
+      currentRolls[i] = Random().nextInt(6) + 1;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final count = ref.watch(diceCountProvider) + 1;
+
     return Column(
       children: [
         const Spacer(),
@@ -35,12 +53,10 @@ class _RollContentState extends ConsumerState<RollContent> {
           children: [
             Wrap(
               alignment: WrapAlignment.center,
-              spacing: 24,
-              runSpacing: 24,
               children: List.generate(
                 count,
                 (index) => Image.asset(
-                  'assets/images/dice-$currentRoll.png',
+                  'assets/images/dice-${currentRolls[index]}.png',
                   height: 150,
                   width: 150,
                 ),
