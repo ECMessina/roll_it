@@ -50,6 +50,8 @@ class _RollContentState extends ConsumerState<RollContent> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width * 0.45;
+
     final count = ref.watch(diceCountProvider) + 1;
 
     return Column(
@@ -63,8 +65,7 @@ class _RollContentState extends ConsumerState<RollContent> {
                 count,
                 (index) => Image.asset(
                   'assets/images/dice-${currentRolls[index]}.png',
-                  height: 150,
-                  width: 150,
+                  width: screenWidth,
                 ),
               ),
             ),
