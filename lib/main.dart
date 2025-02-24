@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:roll_it/dice_count.dart';
-import 'package:roll_it/gradient_container.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roll_it/providers/shared_preferences_provider.dart';
+import 'package:roll_it/start_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -25,22 +24,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.green[100],
-          title: const Text('Dice Count:'),
-          actions: [
-            DiceCount(),
-          ],
-        ),
-        body: GradientContainer(
-          [
-            Colors.green,
-            Colors.green[100]!,
-          ],
-        ),
-      ),
-    );
+    return MaterialApp(home: StartScreen());
   }
 }

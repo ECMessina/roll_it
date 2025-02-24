@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roll_it/providers/dice_count_provider.dart';
+import 'package:roll_it/roll_button.dart';
 
 class RollContent extends ConsumerStatefulWidget {
   const RollContent({super.key});
@@ -72,16 +73,7 @@ class _RollContentState extends ConsumerState<RollContent> {
           ],
         ),
         const Spacer(),
-        TextButton(
-          onPressed: rollIt,
-          child: const Text(
-            'Roll it!',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20,
-            ),
-          ),
-        ),
+        RollButton(onPressed: rollIt),
       ],
     );
   }
